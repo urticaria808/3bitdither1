@@ -1,19 +1,22 @@
-// Loon 脚本: 存储 Authorization
-const targetHost = "mainnet-api.vector.fun"; // 目标主机
-const targetPath = "/graphql"; // 目标路径
-const storageKey = "CapturedAuthorization"; // 存储的 Key
+const targetHost = "mainnet-api.vector.fun";
+const targetPath = "/graphql";
+const storageKey = "CapturedAuthorization";
 
 if ($request && $request.url.includes(targetHost) && $request.url.includes(targetPath)) {
-    const headers = $request.headers; // 获取请求头
+    const headers = $request.headers;
     const authorization = headers["authorization"] || headers["Authorization"]; // 获取 Authorization
 
     if (authorization) {
-        // 写入存储
+
         $persistentStore.write(authorization, storageKey);
-        $notification.post("存储成功", "Authorization 已保存", `Authorization: ${authorization}`);
+        console.log(authorization);
+        $notification.post("进入战壕", "Authorization已保存", `Authorization: ${authorization}`);
     } else {
-        $notification.post("存储失败", "未找到 Authorization", "请检查目标请求是否正确");
+        $notification.post("挫败挫败", "快快快", "自己想想办法吧");
     }
 }
+
+
+
 
 $done();
