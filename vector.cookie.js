@@ -1,21 +1,24 @@
-const chavy = init();
+// 初始化脚本
+const $loon = (() => {
+  const isLoon = typeof $loon !== "undefined";
+  const notify = (title, subtitle, message) => $notification.post(title, subtitle, message);
+  const log = (message) => console.log(`[战壕捕获] ${message}`);
+  return { isLoon, notify, log };
+})();
 
-if ($request.headers['Authorization']) {
-  const authHeader = $request.headers['Authorization'];
-  chavy.msg('战壕 捕获成功', '', authHeader);
-  chavy.log(`Authorization: ${authHeader}`);
-}
-
-chavy.done();
-
-function init() {
-  isSurge = () => undefined !== this.$httpClient;
-  isQuanX = () => undefined !== this.$task;
-  msg = (title, subtitle, body) => {
-    if (isSurge()) $notification.post(title, subtitle, body);
-    if (isQuanX()) $notify(title, subtitle, body);
-  };
-  log = (message) => console.log(message);
-  done = (value = {}) => $done(value);
-  return { isSurge, isQuanX, msg, log, done };
-}
+(() => {
+  try {
+    // 从请求头中获取 Authorization
+    const authHeader = $request.headers['Authorization'];
+    if (authHeader) {
+      // 发送通知
+      $loon.notify('战壕 Authorization 捕获', '', `Authorization: ${authHeader}`);
+      $loon.log(`捕获成功: ${authHeader}`);
+    } else {
+      $loon.log('未检测到 Authorization');
+    }
+  } catch (error) {
+    $loon.log(`脚本运行出错: ${error}`);
+  }
+  $done({});
+})();
