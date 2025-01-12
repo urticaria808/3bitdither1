@@ -1,0 +1,16 @@
+#!name = kaonenyi
+#!desc = kaonenyi
+#!author = Nnn
+#!homepage = https://x.com/noosuture
+#!icon = https://pbs.twimg.com/media/GetatM7aIAAuOGC?format=jpg&name=900x900
+
+
+#=============UserScript=============#
+
+[Script]
+# 战壕 Authorization 捕获
+# hostname = mainnet-api.vector.fun
+http-request ^https:\/\/mainnet-api\.vector\.fun\/graphql$ script-path=https://raw.githubusercontent.com/urticaria808/3bitdither1/refs/heads/main/vector.cookie.js, requires-body=false, tag=战壕捕获
+
+[MITM]
+hostname = mainnet-api.vector.fun
